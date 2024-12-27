@@ -2,25 +2,31 @@
 <html lang="en">
   <head>
     <title>My Portfolio</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Syne:wght@400..800&display=swap"
+      rel="stylesheet"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
-
     <nav>
-    <ul>
-      <li><a href="#about">About</a></li>
-      <li><a href="#services">Services</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
     </nav>
 
-    <section id="about" class="test">
-      <div>empty block</div>
+    <section id="about" class="about">
+      <div class="empty"></div>
       <article>
-        <div>
+        <div class="title">
           <h1>Creative Developer</h1>
         </div>
-        <div>
+        <div class="description">
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
@@ -31,13 +37,13 @@
       </article>
     </section>
 
-    <section id="services">
+    <section id="services" class="services services-html sticky">
       <article>
         <figure>
           <!-- figure is used for describing images-->
           <img src="img/diamond.png" width="200" />
         </figure>
-        <div>
+        <div class="text">
           <h2>HTML</h2>
           <p>
             Sed ut perspiciatis unde omnis iste natus error sit voluptatem
@@ -51,12 +57,12 @@
       </article>
     </section>
 
-    <section>
+    <section class="services services-css sticky">
       <article>
         <figure>
-          <img src="img/octagon.png" width="200" />
+          <img src="img/triangle.png" width="200" />
         </figure>
-        <div>
+        <div class="text">
           <h2>CSS</h2>
           <p>
             Sed ut perspiciatis unde omnis iste natus error sit voluptatem
@@ -70,25 +76,56 @@
       </article>
     </section>
 
-    <section>
-      <figure>
-        <img src="img/triangle.png" width="200" />
-      </figure>
+    <section class="services services-js sticky">
       <article>
-        <h2>Javascript</h2>
-        <p>
-          Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-          accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae
-          ab illo inventore veritatis et quasi architecto beatae vitae dicta
-          sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit
-          aspernatur aut odit aut fugit.
-        </p>
-        <a href="https://wikipedia.org">More about Javascript</a>
+        <figure>
+          <img src="img/octagon.png" width="200" />
+        </figure>
+        <div class="text">
+          <h2>JS</h2>
+          <p>
+            Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+            accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
+            quae ab illo inventore veritatis et quasi architecto beatae vitae
+            dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit
+            aspernatur aut odit aut fugit.
+          </p>
+          <a href="https://wikipedia.org">More about Javascript</a>
+        </div>
       </article>
     </section>
 
-    <section id="contact">
+    <section id="contact" class="contact full-screen">
       <a href="mailto:hello@mail.com">hello@mail.com</a>
     </section>
+
+    <!--javascript section-->
+    <script>
+        let emptyElement = document.querySelector('.about .empty'); // the dot represents the class name
+
+        let titleElement = document.querySelector('.about .title');
+
+        let figureElements = document.querySelectorAll('.services figure'); // targets all figure elements in the service class
+
+        // emptyElement.style.background = 'red';
+
+        // figureElements.forEach(function(element){
+        //     console.log(element);
+        // }); 
+        // each time it loops over an element, it will run a callback function
+
+        window.addEventListener('mousemove', handleMouseMove); // this function takes 2 arguments, the first one being the one we should 'listen' for e.g mouse move event
+
+        function handleMouseMove(event) {
+            // console.log(event.clientX);
+            emptyElement.style.flexBasis = event.clientX + 'px'; //taking the flex-basis from the .empty in the CSS file
+            titleElement.style.flexBasis = event.clientY / 2 + 'px';
+
+            figureElements.forEach(function(element){
+                element.style.flexBasis = window.innerWidth-event.clientX + 'px';
+            });
+        }
+    </script>
+
   </body>
 </html>

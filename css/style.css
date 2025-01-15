@@ -1,296 +1,332 @@
 * {
-    box-sizing: border-box;
-  }
-  
+  box-sizing: border-box;
+}
+
+html,
+body {
+  --border-radius: 100px; /* variable format in CSS */
+  --blue: #1c47ff;
+  --pink: #d6a3fb;
+  --green: #deff94;
+  --grey: #e5e5e5;
+  --gutter: 3.125vw 6.25vw;
+
+  margin: 0;
+  padding: 0;
+  background: #000000;
+  color: #ffffff; /* color of text */
+  font-size: 20px;
+  font-family: "Syne", sans-serif;
+}
+
+h1 {
+  font-size: 70px;
+  line-height: 1em; /* 1 being the multiplier of the font size */
+  margin: 0px;
+}
+
+h2 {
+  font-size: 60px;
+  margin: 0px;
+}
+
+a {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+section {
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: calc(100vh - 100px); /* vh = view height */
+  /* 100% view height - the height of the navigation (100px) */
+  top: 100px; /* pushes the container down 100px */
+  z-index: 1;
+}
+
+section.sticky {
+  position: sticky; /* whenever the top of the element reaches the top of the screen, it sticks there */
+  margin-top: 100px; /* to account for the 100px less height from the section container */
+}
+
+section.full-screen {
+  /* full screen class added so that it does not follow the 100px less height*/
+  height: 100vh;
+  top: 0;
+  margin-top: 0;
+  z-index: 2;
+}
+
+nav {
+  position: fixed; /* all positioning starts out as 'static', meaning it moves with the scroll. when changed to fixed, it stays wherever it is placed. */
+  width: 100%;
+  height: 100px;
+  top: 0;
+  left: 0;
+  font-size: 20px;
+  z-index: 3; /* layer number where each element is supposed to render on */
+  mix-blend-mode: difference;
+
+}
+
+nav ul {
+  display: flex; /* means flex box, makes it easier to design responsive layouts */
+  align-items: center; /* aligns all children to the center of the element */
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+nav ul li {
+  list-style: none; /* removed bullet points */
+  margin-left: 45px;
+}
+
+nav ul li a {
+  color: #ffffff;
+  font-family: "Space Mono", monospace;
+}
+
+/* about section */
+
+section.about .empty {
+  flex-basis: 37.5vw; /* sets the length of the item so that it won't grow or shrink relative to the other elements (i.e it will always be 37.5% of the view width */
+
+  /* why 37.5? the design occupies 6 columns out of 16 columns in figma, so (6/16) x 100% = 37.5% */
+  background: var(--grey); /* background color of the box */
+  border-radius: var(--border-radius); /* rounding of the box corners */
+  /* calling the variable */
+  transition: flex-basis 1s cubic-bezier(0, .9, .4, .99)
+}
+
+section.about article {
+  flex: 1;
+  display: flex;
+  flex-direction: column; /* so the boxes are stacked on top of each other instead of next to each other */
+}
+
+section.about article .title {
+  flex: 1; /* tells the browser how much this item will grow relative to the rest of the flexible items */
+
+  /* 2 meaning it is twice as big as the about article box */
+
+  display: flex;
+  align-items: flex-end; /* aligns the items to the bottom of the box */
+  background: var(--blue);
+  border-radius: var(--border-radius);
+  padding: var(--gutter);
+  transition: flex-basis 1s cubic-bezier(0, .9, .4, .99)
+}
+
+section.about article .description {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  background: var(--pink);
+  border-radius: var(--border-radius);
+  padding: var(--gutter);
+  color: #000000;
+}
+
+/* services section */
+
+section.services article {
+  display: flex;
+  width: 100%;
+}
+
+section.services figure {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-basis: 56.25vw;
+  margin: 0;
+  background: var(--green);
+  border-radius: var(--border-radius);
+  max-width: 62.5vw; /* this is so that the element does not get bigger than 10 columns */
+  transition: flex-basis 1s cubic-bezier(0, .9, .4, .99)
+
+}
+
+section.services figure img {
+  width: 40%;
+}
+
+section.services .text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+  background: #1f1a1c;
+  padding: var(--gutter);
+  border-radius: 100px;
+}
+
+section.services .text a {
+  font-family: "Space Mono", monospace;
+}
+
+/* service section animation */
+
+section.services.services-html figure img{
+    animation-name: diamondFloat;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    /* animation-timing-function: ease-in-out; */
+    animation-timing-function: cubic-bezier(.77, .28, .42, .93)
+}
+
+section.services.services-css figure img{
+    animation-name: triangleScale;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    /* animation-timing-function: ease-in-out; */
+    animation-timing-function: cubic-bezier(.77, .28, .42, .93)
+}
+
+section.services.services-js figure img{
+    animation-name: octagonRotate;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    /* animation-timing-function: ease-in-out; */
+    animation-timing-function: cubic-bezier(.77, .28, .42, .93)
+}
+
+
+/* @keyframes float{
+    0% {
+        transform: translateY(-20px);
+    }
+    100% {
+        transform: translateY(20px);
+    }
+} */
+
+@keyframes diamondFloat{
+    0% {
+        transform: translateY(-5%);
+    } /* 5% relative to the size of the element, for this case, translate y relative to the height of the element */
+    100% {
+        transform: translateY(5%);
+    }
+}
+
+@keyframes triangleScale{
+    0% {
+        transform: scale(90%);
+    } /* 5% relative to the size of the element, for this case, translate y relative to the height of the element */
+    100% {
+        transform: scale(100%);
+    }
+}
+
+@keyframes octagonRotate{
+    0% {
+        transform: rotate(0deg);
+    } /* 5% relative to the size of the element, for this case, translate y relative to the height of the element */
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* service section overrides */
+
+section.services.services-html figure {
+  background: var(--green);
+}
+
+section.services.services-html .text h2,
+section.services.services-html .text a {
+  color: var(--pink);
+}
+
+section.services.services-css figure {
+  background: var(--blue);
+}
+
+section.services.services-css .text h2,
+section.services.services-css .text a {
+  color: var(--green);
+}
+
+section.services.services-js figure {
+  background: var(--pink);
+}
+
+section.services.services-js .text h2,
+section.services.services-js .text a {
+  color: var(--blue);
+}
+
+/* contact section */
+
+section.contact {
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(
+    var(--blue),
+    var(--green) 20%,
+    var(--pink) 70%,
+    var(--grey)
+  );
+  border-radius: var(--border-radius);
+  /* mix-blend-mode: difference; */
+}
+
+section.contact a {
+  font-size: 100px;
+  color: #000000;
+  font-weight: bold;
+  transition: color 1s cubic-bezier(.77, .28, .42, .93);
+  /* transition: filter 2s cubic-bezier(.77, .28, .42, .93);
+  will-change: filter; /* some browsers need this for filters so that it renders better */
+}
+
+section.contact a:hover{
+    color: #ffffff;
+    /* filter: blur(20px); */
+}
+
+/* responsive */
+
+@media only screen and (max-width: 768px) {
   html,
   body {
-    --border-radius: 100px; /* variable format in CSS */
-    --blue: #1c47ff;
-    --pink: #d6a3fb;
-    --green: #deff94;
-    --grey: #e5e5e5;
-    --gutter: 3.125vw 6.25vw;
-  
-    margin: 0;
-    padding: 0;
-    background: #000000;
-    color: #ffffff; /* color of text */
-    font-size: 20px;
-    font-family: "Syne", sans-serif;
+    --border-radius: 50px;
+    --gutter: 6.25vw;
   }
-  
+
   h1 {
-    font-size: 70px;
-    line-height: 1em; /* 1 being the multiplier of the font size */
-    margin: 0px;
-  }
-  
-  h2 {
     font-size: 60px;
-    margin: 0px;
   }
-  
-  a {
-    color: #ffffff;
-    text-decoration: none;
+
+  h1 {
+    font-size: 40px;
   }
-  
-  section {
-    position: relative;
-    display: flex;
-    width: 100%;
-    height: calc(100vh - 100px); /* vh = view height */
-    /* 100% view height - the height of the navigation (100px) */
-    top: 100px; /* pushes the container down 100px */
-    z-index: 2;
-  }
-  
-  section.sticky {
-    position: sticky; /* whenever the top of the element reaches the top of the screen, it sticks there */
-    margin-top: 100px; /* to account for the 100px less height from the section container */
-  }
-  
-  section.full-screen {
-    /* full screen class added so that it does not follow the 100px less height*/
-    height: 100vh;
-    top: 0;
-    margin-top: 0;
-    z-index: 3;
-  }
-  
-  nav {
-    position: fixed; /* all positioning starts out as 'static', meaning it moves with the scroll. when changed to fixed, it stays wherever it is placed. */
-    width: 100%;
-    height: 100px;
-    top: 0;
-    left: 0;
-    font-size: 20px;
-    z-index: 1; /* layer number where each element is supposed to render on */
-  }
-  
-  nav ul {
-    display: flex; /* means flex box, makes it easier to design responsive layouts */
-    align-items: center; /* aligns all children to the center of the element */
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-  }
-  
+
   nav ul li {
-    list-style: none; /* removed bullet points */
-    margin-left: 45px;
+    margin-left: 25px;
   }
-  
-  nav ul li a {
-    color: #ffffff;
-    font-family: "Space Mono", monospace;
-  }
-  
-  /* about section */
-  
-  section.about .empty {
-    flex-basis: 37.5vw; /* sets the length of the item so that it won't grow or shrink relative to the other elements (i.e it will always be 37.5% of the view width */
-  
-    /* why 37.5? the design occupies 6 columns out of 16 columns in figma, so (6/16) x 100% = 37.5% */
-    background: var(--grey); /* background color of the box */
-    border-radius: var(--border-radius); /* rounding of the box corners */
-    /* calling the variable */
-    transition: flex-basis 1s cubic-bezier(0, .9, .4, .99)
-  }
-  
-  section.about article {
-    flex: 1;
-    display: flex;
-    flex-direction: column; /* so the boxes are stacked on top of each other instead of next to each other */
-  }
-  
-  section.about article .title {
-    flex: 1; /* tells the browser how much this item will grow relative to the rest of the flexible items */
-  
-    /* 2 meaning it is twice as big as the about article box */
-  
-    display: flex;
-    align-items: flex-end; /* aligns the items to the bottom of the box */
-    background: var(--blue);
-    border-radius: var(--border-radius);
-    padding: var(--gutter);
-    transition: flex-basis 1s cubic-bezier(0, .9, .4, .99)
-  }
-  
-  section.about article .description {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    background: var(--pink);
-    border-radius: var(--border-radius);
-    padding: var(--gutter);
-    color: #000000;
-  }
-  
-  /* services section */
-  
+
   section.services article {
-    display: flex;
-    width: 100%;
-  }
-  
-  section.services figure {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-basis: 56.25vw;
-    margin: 0;
-    background: var(--green);
-    border-radius: var(--border-radius);
-    max-width: 62.5vw; /* this is so that the element does not get bigger than 10 columns */
-    transition: flex-basis 1s cubic-bezier(0, .9, .4, .99)
-  
-  }
-  
-  section.services figure img {
-    width: 40%;
-  }
-  
-  section.services .text {
-    display: flex;
     flex-direction: column;
-    justify-content: center;
-    flex: 1;
-    background: #1f1a1c;
-    padding: var(--gutter);
-    border-radius: 100px;
   }
-  
-  section.services .text a {
-    font-family: "Space Mono", monospace;
+
+  section.services figure {
+    flex-basis: 25vh;
   }
-  
-  /* service section animation */
-  
-  section.services.services-html figure img{
-  animation-name: float;
-  animation-duration: 1s;
-  animation-iteration-count: infinite;
-  animation-direction: alternate;
-  /* animation-timing-function: ease-in-out; */
-  animation-timing-function: cubic-bezier(.77, .28, .42, .93)
-  
-  
+
+  section.services figure img {
+    width: 20%;
   }
-  
-  /* @keyframes float{
-      0% {
-          transform: translateY(-20px);
-      }
-      100% {
-          transform: translateY(20px);
-      }
-  } */
-  
-  @keyframes float{
-      0% {
-          transform: translateY(-5%);
-      } /* 5% relative to the size of the element, for this case, translate y relative to the height of the element */
-      100% {
-          transform: translateY(5%);
-      }
-  }
-  
-  /* service section overrides */
-  
-  section.services.services-html figure {
-    background: var(--green);
-  }
-  
-  section.services.services-html .text h2,
-  section.services.services-html .text a {
-    color: var(--pink);
-  }
-  
-  section.services.services-css figure {
-    background: var(--blue);
-  }
-  
-  section.services.services-css .text h2,
-  section.services.services-css .text a {
-    color: var(--green);
-  }
-  
-  section.services.services-js figure {
-    background: var(--pink);
-  }
-  
-  section.services.services-js .text h2,
-  section.services.services-js .text a {
-    color: var(--blue);
-  }
-  
-  /* contact section */
-  
-  section.contact {
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(
-      var(--blue),
-      var(--green) 20%,
-      var(--pink) 70%,
-      var(--grey)
-    );
-    border-radius: var(--border-radius);
-    /* mix-blend-mode: difference; */
-  }
-  
+
   section.contact a {
-    font-size: 100px;
-    color: #000000;
-    font-weight: bold;
-    /* transition: color 2s cubic-bezier(.77, .28, .42, .93); */
-    transition: filter 2s cubic-bezier(.77, .28, .42, .93);
-    will-change: filter; /* some browsers need this for filters so that it renders better */
+    font-size: 50px;
+    transform: rotate(90deg);
   }
-  
-  section.contact a:hover{
-      /* color: #ffffff; */
-      filter: blur(20px);
-  }
-  
-  /* responsive */
-  
-  @media only screen and (max-width: 768px) {
-    html,
-    body {
-      --border-radius: 50px;
-      --gutter: 6.25vw;
-    }
-  
-    h1 {
-      font-size: 60px;
-    }
-  
-    h1 {
-      font-size: 40px;
-    }
-  
-    nav ul li {
-      margin-left: 25px;
-    }
-  
-    section.services article {
-      flex-direction: column;
-    }
-  
-    section.services figure {
-      flex-basis: 25vh;
-    }
-  
-    section.services figure img {
-      width: 20%;
-    }
-  
-    section.contact a {
-      font-size: 50px;
-      transform: rotate(90deg);
-    }
-  }
-  
+}

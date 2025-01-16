@@ -197,16 +197,6 @@ section.services.services-js figure img{
     animation-timing-function: cubic-bezier(.77, .28, .42, .93)
 }
 
-
-/* @keyframes float{
-    0% {
-        transform: translateY(-20px);
-    }
-    100% {
-        transform: translateY(20px);
-    }
-} */
-
 @keyframes diamondFloat{
     0% {
         transform: translateY(-5%);
@@ -289,7 +279,6 @@ section.contact a {
 
 section.contact a:hover{
     color: #ffffff;
-    /* filter: blur(20px); */
 }
 
 /* responsive */
